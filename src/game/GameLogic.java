@@ -1,9 +1,9 @@
-package Game;
+package game;
 
-import Game.Consumables.Consumable;
-import Game.Directions.Direction;
-import Game.Field.Field;
-import Game.hero.Hero;
+import game.consumables.Consumable;
+import game.directions.Direction;
+import game.field.Field;
+import game.hero.Hero;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,6 @@
-package Game.hero;
+package game.hero;
 
-import Game.Consumables.Consumable;
+import game.consumables.Consumable;
 
 import java.util.ArrayList;
 

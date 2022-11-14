@@ -1,7 +1,7 @@
-import Game.Consumables.ConsumableTypes.*;
-import Game.Field.Field;
-import Game.GameLogic;
-import Game.hero.Hero;
+import game.consumables.consumable_types.*;
+import game.field.Field;
+import game.GameLogic;
+import game.hero.Hero;
 
 public class Main {
     public static void main(String[] args) {

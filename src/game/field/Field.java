@@ -1,7 +1,7 @@
-package Game.Field;
+package game.field;
 
-import Game.Consumables.Consumable;
-import Game.hero.Hero;
+import game.consumables.Consumable;
+import game.hero.Hero;
 
 import java.util.*;
 
@@ -40,10 +40,6 @@ public class Field {
         }
     }
 
-    private boolean isPositionEmpty(int x, int y) {
-        return field[y][x] == null;
-    }
-
     public void placeObject(Object obj) throws IndexOutOfBoundsException {
         if(this.freePositions-- == 0) {
             throw new IndexOutOfBoundsException("No more free positions on the board");
@@ -66,20 +62,13 @@ public class Field {
 
     }
 
-
     public void changeHeroPosition(Hero hero, int x, int y) {
         field[hero.getY()][hero.getX()] = null;
         field[y][x] = hero;
     }
 
-    private int getRandomX() {
-        Random random = new Random();
-        return random.nextInt(width);
-    }
-
-    private int getRandomY() {
-        Random random = new Random();
-        return random.nextInt(height);
+    private boolean isPositionEmpty(int x, int y) {
+        return field[y][x] == null;
     }
 
     public int getWidth() {
@@ -100,5 +89,15 @@ public class Field {
 
     public boolean isWithin(int x, int y) {
         return (x < this.width && x >= 0) && (y < this.height && y >= 0);
+    }
+
+    private int getRandomX() {
+        Random random = new Random();
+        return random.nextInt(width);
+    }
+
+    private int getRandomY() {
+        Random random = new Random();
+        return random.nextInt(height);
     }
 }

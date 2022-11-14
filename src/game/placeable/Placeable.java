@@ -1,12 +1,12 @@
-package game;
+package game.placeable;
 
-public abstract class FieldObj {
+public abstract class Placeable {
     protected final String name;
     protected final String initial;
     private int x;
     private int y;
 
-    public FieldObj(String name, String initial) throws IllegalArgumentException{
+    public Placeable(String name, String initial) throws IllegalArgumentException{
         if(name.isEmpty() || initial.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty!");
         }

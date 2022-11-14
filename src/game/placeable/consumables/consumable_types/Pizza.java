@@ -1,7 +1,7 @@
-package game.consumables.consumable_types;
+package game.placeable.consumables.consumable_types;
 
-import game.consumables.Consumable;
-import game.hero.Hero;
+import game.placeable.consumables.Consumable;
+import game.placeable.hero.Hero;
 
 public class Pizza extends Consumable {
     public Pizza(int level) {

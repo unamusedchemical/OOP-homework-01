@@ -1,15 +1,14 @@
 package game.field;
 
-import game.FieldObj;
-import game.consumables.Consumable;
-import game.hero.Hero;
+import game.placeable.Placeable;
+import game.placeable.hero.Hero;
 
 import java.util.*;
 
 public class Field {
     private final int height;
     private final int width;
-    private FieldObj[][] field;
+    private Placeable[][] field;
     private int freePositions;
 
     public Field(int height, int width) throws IllegalArgumentException{
@@ -20,7 +19,7 @@ public class Field {
 
         this.height = height;
         this.width = width;
-        field = new FieldObj[height][width];
+        field = new Placeable[height][width];
         freePositions = height * width;
 
         System.out.printf("Field with size %d x %d has been initialized.\n", width, height);
@@ -39,7 +38,7 @@ public class Field {
         }
     }
 
-    public void placeObject(FieldObj obj) throws IndexOutOfBoundsException {
+    public void placeObject(Placeable obj) throws IndexOutOfBoundsException {
         if(this.freePositions-- == 0) {
             throw new IndexOutOfBoundsException("No more free positions on the board");
         }
@@ -75,7 +74,7 @@ public class Field {
         field[y][x] = null;
     }
 
-    public FieldObj at(int x, int y) {
+    public Placeable at(int x, int y) {
         return field[y][x];
     }
 

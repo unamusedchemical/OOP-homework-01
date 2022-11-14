@@ -1,9 +1,10 @@
 package game;
 
-import game.consumables.Consumable;
+import game.placeable.Placeable;
+import game.placeable.consumables.Consumable;
 import game.directions.Direction;
 import game.field.Field;
-import game.hero.Hero;
+import game.placeable.hero.Hero;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class GameLogic {
         }
     }
 
-    public GameLogic addObject(FieldObj obj) {
+    public GameLogic addObject(Placeable obj) {
         field.placeObject(obj);
 
         if(obj instanceof Hero) {

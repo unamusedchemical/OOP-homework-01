@@ -1,7 +1,7 @@
 package Game.Consumables.ConsumableTypes;
 
 import Game.Consumables.Consumable;
-import Game.Hero.Hero;
+import Game.hero.Hero;
 
 public class Mushroom extends Consumable {
     public Mushroom(int level) {

@@ -3,7 +3,7 @@ package Game;
 import Game.Consumables.Consumable;
 import Game.Directions.Direction;
 import Game.Field.Field;
-import Game.Hero.Hero;
+import Game.hero.Hero;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,21 +46,26 @@ public class GameLogic {
         }
     }
 
-    public GameLogic addHero(Hero hero) {
-        field.placeHero(hero);
-        aliveHeroes.add(hero);
-        System.out.printf("Hero added %s at  x=%d, y=%d)\n", hero.getHeroInfo(), hero.getX(), hero.getY());
+    public GameLogic addObject(Object obj) {
+        field.placeObject(obj);
+
+        if(obj instanceof Hero) {
+            aliveHeroes.add((Hero) obj);
+            System.out.printf("Hero added %s at x=%d, y=%d)\n", ((Hero) obj).getHeroInfo(),
+                                                                ((Hero) obj).getX(),
+                                                                ((field.getHeight() - 1 - ((Hero) obj).getY())) % field.getHeight());
+        } else if(obj instanceof Consumable) {
+            consumables.add((Consumable) obj);
+            System.out.printf("Consumable added %s(initial=%s, level=%d) at x=%d, y=%d\n", ((Consumable) obj).getName(),
+                                                                                           ((Consumable) obj).getInitial(),
+                                                                                           ((Consumable) obj).getLevel(),
+                                                                                           ((Consumable) obj).getX(),
+                                                                                           ((field.getHeight() - 1 - ((Consumable) obj).getY())) % field.getHeight());
+        }
 
         return this;
     }
 
-    public GameLogic addConsumable(Consumable consumable) {
-        field.placeConsumable(consumable);
-        consumables.add(consumable);
-        System.out.printf("Consumable added %s(initial=%s, level=%d) at x=%d, y=%d\n", consumable.getName(), consumable.getInitial(), consumable.getLevel(), consumable.getX(), consumable.getY());
-
-        return this;
-    }
     private boolean checkForWinner() {
         if(aliveHeroes.size() == 0) {
             System.out.println("No winners.");

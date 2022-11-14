@@ -1,4 +1,4 @@
-package Game.Hero;
+package Game.hero;
 
 import Game.Consumables.Consumable;
 

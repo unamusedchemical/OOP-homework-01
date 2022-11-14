@@ -1,7 +1,7 @@
 package Game.Field;
 
 import Game.Consumables.Consumable;
-import Game.Hero.Hero;
+import Game.hero.Hero;
 
 import java.util.*;
 
@@ -9,25 +9,24 @@ public class Field {
     private final int height;
     private final int width;
     private Object[][] field;
+    private int freePositions;
 
-    public Field(int height, int width) {
+    public Field(int height, int width) throws IllegalArgumentException{
         // check if dimensions are ok
+        if(height * width < 2) {
+            throw new IllegalArgumentException("Field must have at least two free spaces!");
+        }
 
         this.height = height;
         this.width = width;
         field = new Object[height][width];
+        freePositions = height * width;
+
         System.out.printf("Field with size %d x %d has been initialized.\n", width, height);
     }
 
     public void draw() {
-        System.out.print("  ");
-        for(int i = 0; i < width; ++i) {
-            System.out.printf("%5d.", i);
-        }
-        System.out.print("\n");
-
         for(int i = 0; i < height; ++i) {
-            System.out.printf("%d. ", i);
             for(int j = 0; j < width; j++) {
                 if(field[i][j] instanceof Hero) {
                     System.out.printf("| %3s ", ((Hero)field[i][j]).getInitial());
@@ -45,27 +44,28 @@ public class Field {
         return field[y][x] == null;
     }
 
-    public void placeHero(Hero hero) {
+    public void placeObject(Object obj) throws IndexOutOfBoundsException {
+        if(this.freePositions-- == 0) {
+            throw new IndexOutOfBoundsException("No more free positions on the board");
+        }
+
         int x, y;
         do {
             x = getRandomX();
             y = getRandomY();
         } while (!isPositionEmpty(x, y));
-        field[y][x] = hero;
-        hero.setX(x);
-        hero.setY(y);
+        field[y][x] = obj;
+
+        if(obj instanceof Consumable) {
+            ((Consumable) obj).setX(x);
+            ((Consumable) obj).setY(y);
+        } else if(obj instanceof Hero) {
+            ((Hero) obj).setX(x);
+            ((Hero) obj).setY(y);
+        }
+
     }
 
-    public void placeConsumable(Consumable consumable) {
-        int x, y;
-        do {
-            x = getRandomX();
-            y = getRandomY();
-        } while (!isPositionEmpty(x, y));
-        field[y][x] = consumable;
-        consumable.setX(x);
-        consumable.setY(y);
-    }
 
     public void changeHeroPosition(Hero hero, int x, int y) {
         field[hero.getY()][hero.getX()] = null;
@@ -80,6 +80,14 @@ public class Field {
     private int getRandomY() {
         Random random = new Random();
         return random.nextInt(height);
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
     }
 
     public void removeObjectAt(int x, int y) {

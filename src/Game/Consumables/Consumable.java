@@ -1,6 +1,6 @@
 package Game.Consumables;
 
-import Game.Hero.Hero;
+import Game.hero.Hero;
 
 public abstract class Consumable {
     private int x, y;

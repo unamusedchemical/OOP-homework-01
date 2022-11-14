@@ -11,7 +11,6 @@ public class Pizza extends Consumable {
     @Override
     public boolean apply(Hero hero) {
         hero.boostPower(13);
-        System.out.println(hero.getHeroInfo());
         return (--uses) != 0;
     }
 }

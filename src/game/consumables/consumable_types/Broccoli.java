@@ -11,7 +11,6 @@ public class Broccoli extends Consumable {
     @Override
     public boolean apply(Hero hero) {
         hero.boostHealth(2 * this.level);
-        System.out.println(hero.getHeroInfo());
         return (--uses) != 0;
     }
 }

@@ -1,28 +1,24 @@
 package game.hero;
 
+import game.FieldObj;
 import game.consumables.Consumable;
+import game.consumables.consumable_types.Pizza;
+import game.field.Field;
 
 import java.util.ArrayList;
 
-public class Hero {
-    private int x, y;
-    private String name;
-    private String initial;
+public class Hero extends FieldObj {
     private int health;
     private int power;
-    private ArrayList<Consumable> consumables;
+    private final ArrayList<Consumable> consumables;
 
     public Hero(String name, int health, int power) throws IllegalArgumentException {
-        if(name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty!");
-        }
+        super(name, name.substring(0, 2));
 
         if(health <= 0 || power <= 0) {
             throw new IllegalArgumentException("No fields take negative values!");
         }
 
-        this.name = name;
-        this.initial = name.substring(0, 2);
         this.health = health;
         this.power = power;
         consumables = new ArrayList<>();
@@ -35,6 +31,23 @@ public class Hero {
         }
     }
 
+    // returns the hero that has lost
+    // in case that both heroes kill each other null is returned
+    public Hero fight(Hero other) {
+        if (this.power > other.power || (this.power == other.power && this.health > other.health)) {
+            System.out.printf("%s kills %s\n", this.name, other.getName());
+            return other;
+        }
+
+        if(this.power < other.power || (this.power == other.power && this.health < other.health)) {
+            System.out.printf("%s kills %s\n", other.getName(), this.getName());
+            return this;
+        }
+
+        System.out.printf("%s and %s kill each other\n", this.getName(), other.getName());
+        return null;
+    }
+
     // applies long-lasting effects
     public void applyConsumableLongLastingEffects() {
         this.consumables.removeIf(i -> !i.apply(this));
@@ -42,50 +55,22 @@ public class Hero {
 
     public void boostHealth(int amount) {
         this.health += amount;
+        System.out.println(this.getInfo());
     }
 
     public void boostPower(int amount) {
         this.power += amount;
+        System.out.println(this.getInfo());
     }
 
     public void damageHealth(int amount) {
         this.health -= amount;
+        System.out.println(this.getInfo());
     }
 
     public void damagePower(int amount) {
         this.power -= amount;
-    }
-
-    public int getX() {
-        return this.x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getInitial() {
-        return initial;
-    }
-
-    public void setInitial(String initial) {
-        this.initial = initial;
+        System.out.println(this.getInfo());
     }
 
     public int getHealth() {
@@ -104,7 +89,7 @@ public class Hero {
         this.power = power;
     }
 
-    public String getHeroInfo() {
+    public String getInfo() {
         return String.format("Hero(name=”%s”, initial=”%s”, health=%d, power=%d)", this.name, this.initial, this.health, this.power);
     }
 }

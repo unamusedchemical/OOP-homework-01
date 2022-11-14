@@ -5,6 +5,7 @@ import game.hero.Hero;
 
 public class Main {
     public static void main(String[] args) {
+//        print info after status effects
         try {
             Field field = new Field(4, 4);
             GameLogic game = new GameLogic(field);

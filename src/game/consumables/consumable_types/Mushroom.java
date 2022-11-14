@@ -11,7 +11,6 @@ public class Mushroom extends Consumable {
     @Override
     public boolean apply(Hero hero) {
         hero.damageHealth(20);
-        System.out.println(hero.getHeroInfo());
         return (--uses) != 0;
     }
 }

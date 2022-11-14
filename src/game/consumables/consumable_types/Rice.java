@@ -11,7 +11,6 @@ public class Rice extends Consumable {
     @Override
     public boolean apply(Hero hero) {
         hero.boostPower(this.level * 2);
-        System.out.println(hero.getHeroInfo());
         return (--uses) != 0;
     }
 }

@@ -46,22 +46,18 @@ public class GameLogic {
         }
     }
 
-    public GameLogic addObject(Object obj) {
+    public GameLogic addObject(FieldObj obj) {
         field.placeObject(obj);
 
         if(obj instanceof Hero) {
             aliveHeroes.add((Hero) obj);
-            System.out.printf("Hero added %s at x=%d, y=%d)\n", ((Hero) obj).getHeroInfo(),
-                                                                ((Hero) obj).getX(),
-                                                                ((field.getHeight() - 1 - ((Hero) obj).getY())) % field.getHeight());
+            System.out.print("Hero added ");
         } else if(obj instanceof Consumable) {
             consumables.add((Consumable) obj);
-            System.out.printf("Consumable added %s(initial=%s, level=%d) at x=%d, y=%d\n", ((Consumable) obj).getName(),
-                                                                                           ((Consumable) obj).getInitial(),
-                                                                                           ((Consumable) obj).getLevel(),
-                                                                                           ((Consumable) obj).getX(),
-                                                                                           ((field.getHeight() - 1 - ((Consumable) obj).getY())) % field.getHeight());
+            System.out.print("Consumable added ");
         }
+
+        System.out.printf("%s at x=%d, y=%d\n", obj.getInfo(), obj.getX(), obj.getY());
 
         return this;
     }
@@ -89,27 +85,29 @@ public class GameLogic {
         System.out.printf("%s moves ", hero.getName());
 
         switch (directions.get(random.nextInt(directions.size()))) {
-            case UP:
+            case UP -> {
                 y -= 1;
                 System.out.println("UP");
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 y += 1;
                 System.out.println("DOWN");
-                break;
-            case LEFT:
+            }
+            case LEFT -> {
                 x -= 1;
                 System.out.println("LEFT");
-                break;
-            case RIGHT:
+            }
+            case RIGHT -> {
                 x += 1;
                 System.out.println("RIGHT");
-                break;
-            default:
-                System.out.println("Invalid direction");
-                break;
+            }
+            default -> System.out.println("Invalid direction");
         }
 
+        checkMovePosition(hero, x, y);
+    }
+
+    private void checkMovePosition(Hero hero, int x, int y) {
         if(field.isWithin(x, y)) {
             if(field.at(x, y) instanceof Consumable consumable) {
                 System.out.printf("%s consumes %s\n", hero.getName(), consumable.getName());
@@ -119,7 +117,6 @@ public class GameLogic {
                 battle(hero, opponent);
             }
 
-            // a hero is dead if they are not on the list with aliveHeroes
             if(aliveHeroes.contains(hero)) {
                 field.changeHeroPosition(hero, x, y);
                 hero.setX(x);
@@ -129,31 +126,19 @@ public class GameLogic {
     }
 
     private void battle(Hero hero, Hero opponent) {
-        if (hero.getPower() > opponent.getPower() ||
-                (hero.getPower() == opponent.getPower() && hero.getHealth() > opponent.getHealth())) {
-            System.out.printf("%s kills %s\n", hero.getName(), opponent.getName());
 
-            aliveHeroes.remove(opponent);
-            field.removeObjectAt(opponent.getX(), opponent.getY());
+        Hero loser = hero.fight(opponent);
 
-        } else if(hero.getPower() < opponent.getPower() ||
-                (hero.getPower() == opponent.getPower() && hero.getHealth() < opponent.getHealth())) {
-
-            System.out.printf("%s kills %s\n", opponent.getName(), hero.getName());
-
-            aliveHeroes.remove(hero);
-            field.removeObjectAt(hero.getX(), hero.getY());
-
+        if(loser == null) {
+            removeHero(hero);
+            removeHero(opponent);
         } else {
-
-            System.out.printf("%s and %s kill each other\n", hero.getName(), opponent.getName());
-
-            aliveHeroes.remove(hero);
-            field.removeObjectAt(hero.getX(), hero.getY());
-
-            aliveHeroes.remove(opponent);
-            field.removeObjectAt(opponent.getX(), opponent.getY());
-
+            removeHero(loser);
         }
+    }
+
+    private void removeHero(Hero hero) {
+        aliveHeroes.remove(hero);
+        field.removeObjectAt(hero.getX(), hero.getY());
     }
 }

@@ -11,7 +11,6 @@ public class Orange extends Consumable {
     @Override
     public boolean apply(Hero hero) {
         hero.boostHealth(this.level);
-        System.out.println(hero.getHeroInfo());
         return (--uses) != 0;
     }
 }

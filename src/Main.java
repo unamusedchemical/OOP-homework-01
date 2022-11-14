@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 //        print info after status effects
         try {
-            Field field = new Field(4, 4);
+            Field field = new Field(3, 3);
             GameLogic game = new GameLogic(field);
             game.addObject(new Hero("Thor", 2000, 300));
             game.addObject(new Hero("Loki", 1500, 200));

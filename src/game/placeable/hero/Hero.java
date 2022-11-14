@@ -31,7 +31,7 @@ public class Hero extends Placeable {
 
     // returns the hero that has lost
     // in case that both heroes kill each other null is returned
-    public Hero fight(Hero other) {
+    public Hero fightToTheDeath(Hero other) {
         if (this.power > other.power || (this.power == other.power && this.health > other.health)) {
             System.out.printf("%s kills %s\n", this.name, other.getName());
             return other;

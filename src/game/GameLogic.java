@@ -128,13 +128,13 @@ public class GameLogic {
 
     private void battle(Hero hero, Hero opponent) {
 
-        Hero loser = hero.fight(opponent);
+        Hero dead = hero.fightToTheDeath(opponent);
 
-        if(loser == null) {
+        if(dead == null) {
             removeHero(hero);
             removeHero(opponent);
         } else {
-            removeHero(loser);
+            removeHero(dead);
         }
     }
 

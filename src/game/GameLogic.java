@@ -12,7 +12,6 @@ import java.util.Random;
 
 public class GameLogic {
     private ArrayList<Hero> aliveHeroes;
-    private ArrayList<Consumable> consumables;
     private ArrayList<Direction> directions;
 
     final Field field;
@@ -23,7 +22,6 @@ public class GameLogic {
         }
 
         this.aliveHeroes = new ArrayList<>();
-        this.consumables = new ArrayList<>();
         this.field = field;
         directions = new ArrayList<>(Arrays.asList(Direction.values()));
     }
@@ -54,7 +52,6 @@ public class GameLogic {
             aliveHeroes.add((Hero) obj);
             System.out.print("Hero added ");
         } else if(obj instanceof Consumable) {
-            consumables.add((Consumable) obj);
             System.out.print("Consumable added ");
         }
 
@@ -79,6 +76,11 @@ public class GameLogic {
         Random random = new Random();
 
         hero.applyConsumableLongLastingEffects();
+
+        if(hero.isDead()) {
+            this.aliveHeroes.remove(hero);
+            return;
+        }
 
         int x = hero.getX();
         int y = hero.getY();

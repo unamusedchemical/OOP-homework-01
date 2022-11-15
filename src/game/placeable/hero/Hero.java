@@ -21,7 +21,11 @@ public class Hero extends Placeable {
         this.power = power;
         consumables = new ArrayList<>();
     }
-
+    
+    public boolean isDead() {
+        return this.health == 0;
+    }
+    
     // applies a consumable found on the field
     public void applyConsumable(Consumable consumable) {
         if(consumable.apply(this)) {
@@ -34,15 +38,20 @@ public class Hero extends Placeable {
     public Hero fightToTheDeath(Hero other) {
         if (this.power > other.power || (this.power == other.power && this.health > other.health)) {
             System.out.printf("%s kills %s\n", this.name, other.getName());
+            other.health = 0;
             return other;
         }
 
         if(this.power < other.power || (this.power == other.power && this.health < other.health)) {
             System.out.printf("%s kills %s\n", other.getName(), this.getName());
+            this.health = 0;
             return this;
         }
 
         System.out.printf("%s and %s kill each other\n", this.getName(), other.getName());
+        this.health = 0;
+        other.health = 0;
+
         return null;
     }
 

@@ -12,6 +12,7 @@ public class Orange extends Consumable {
     public boolean apply(Hero hero) {
         super.apply(hero);
         hero.boostHealth(this.level);
+        hero.boostPower(this.level);
         return (--uses) != 0;
     }
 }

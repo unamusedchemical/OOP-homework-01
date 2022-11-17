@@ -71,12 +71,22 @@ public class Hero extends Placeable {
     }
 
     public void damageHealth(int amount) {
-        this.health -= amount;
+        if(this.health - amount <= 0) {
+            this.health = 0;
+        } else {
+            this.health -= amount;
+        }
+
         System.out.println(this.getInfo());
     }
 
     public void damagePower(int amount) {
-        this.power -= amount;
+        if(this.power - amount <= 0) {
+            this.power = 0;
+        } else {
+            this.power -= amount;
+        }
+
         System.out.println(this.getInfo());
     }
 

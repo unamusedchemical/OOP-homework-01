@@ -23,7 +23,7 @@ public class Hero extends Placeable {
     }
     
     public boolean isDead() {
-        return this.health == 0;
+        return this.health <= 0;
     }
     
     // applies a consumable found on the field

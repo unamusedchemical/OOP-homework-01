@@ -10,6 +10,7 @@ public class Broccoli extends Consumable {
 
     @Override
     public boolean apply(Hero hero) {
+        super.apply(hero);
         hero.boostHealth(2 * this.level);
         return (--uses) != 0;
     }

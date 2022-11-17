@@ -10,6 +10,7 @@ public class Mushroom extends Consumable {
 
     @Override
     public boolean apply(Hero hero) {
+        super.apply(hero);
         hero.damageHealth(20);
         return (--uses) != 0;
     }

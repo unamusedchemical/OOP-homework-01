@@ -10,6 +10,7 @@ public class Orange extends Consumable {
 
     @Override
     public boolean apply(Hero hero) {
+        super.apply(hero);
         hero.boostHealth(this.level);
         return (--uses) != 0;
     }

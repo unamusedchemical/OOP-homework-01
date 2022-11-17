@@ -78,7 +78,8 @@ public class GameLogic {
         hero.applyConsumableLongLastingEffects();
 
         if(hero.isDead()) {
-            this.aliveHeroes.remove(hero);
+            System.out.printf("%s dies\n", hero.getName());
+            removeHero(hero);
             return;
         }
 
@@ -115,6 +116,11 @@ public class GameLogic {
             if(field.at(x, y) instanceof Consumable consumable) {
                 System.out.printf("%s consumes %s\n", hero.getName(), consumable.getName());
                 hero.applyConsumable(consumable);
+                if(hero.isDead()) {
+                    System.out.printf("%s dies after consuming %s\n", hero.getName(), consumable.getName());
+                    removeHero(hero);
+                    field.removeObjectAt(x, y);
+                }
             } else if(field.at(x, y) instanceof Hero opponent) {
                 System.out.printf("%s fights %s\n", hero.getName(), opponent.getName());
                 battle(hero, opponent);

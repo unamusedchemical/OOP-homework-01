@@ -25,7 +25,10 @@ public abstract class Consumable extends Placeable {
 
     // true - can apply again
     // false - cannot apply again
-    public abstract boolean apply(Hero hero);
+    public boolean apply(Hero hero) {
+        System.out.printf("%s effect is applied to %s\n", this.name, hero.getName());
+        return true;
+    }
 
     public String getInfo() {
         return String.format("%s(initial=%s, level=%s)", this.name, this.initial, this.level);

@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class GameLogic {
     private ArrayList<Hero> aliveHeroes;
-    private ArrayList<Direction> directions;
+    private final ArrayList<Direction> directions;
 
     final Field field;
 
@@ -26,7 +26,7 @@ public class GameLogic {
         directions = new ArrayList<>(Arrays.asList(Direction.values()));
     }
 
-    public void start() throws IllegalAccessError{
+    public void start() throws IllegalAccessError {
         System.out.println("Game started");
 
         if(aliveHeroes.size() < 2) {

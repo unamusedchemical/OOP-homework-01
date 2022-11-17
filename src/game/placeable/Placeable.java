@@ -7,10 +7,9 @@ public abstract class Placeable {
     private int y;
 
     public Placeable(String name, String initial) throws IllegalArgumentException{
-        if(name.isEmpty() || initial.isEmpty()) {
+        if((null == name || name.isEmpty()) || (null == initial || initial.isEmpty())) {
             throw new IllegalArgumentException("Name cannot be empty!");
         }
-
         this.name = name;
         this.initial = initial;
     }
